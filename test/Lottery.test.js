@@ -60,4 +60,17 @@ describe("Lottery Contract", () => {
     assert.equal(accounts[2], players[2]);
     assert.equal(3, players.length);
   });
+
+  it("requires a minimum amount of the ether to enter", async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei("0.009", "ether"),
+      });
+
+      assert(false); //no matter what, if passed the above part will pass the fail to testing
+    } catch (err) {
+      assert(err);
+    }
+  });
 });
